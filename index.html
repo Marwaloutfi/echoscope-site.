@@ -8,25 +8,25 @@
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f7f7f7;
-      color: #222;
       margin: 0;
       padding: 0;
       transition: background-color 0.6s ease, color 0.6s ease;
     }
 
     .container {
-      max-width: 600px;
-      margin: 60px auto;
+      max-width: 700px;
+      margin: 70px auto;
       background: white;
-      border-radius: 20px;
+      border-radius: 25px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      padding: 30px;
+      padding: 35px;
       transition: background-color 0.6s ease;
     }
 
     h1 {
       text-align: center;
       margin-bottom: 25px;
+      font-size: 28px;
     }
 
     label {
@@ -79,17 +79,37 @@
     .hidden {
       display: none;
     }
+
+    /* Page d'accueil avec logo */
+    #genderSelection {
+      text-align: center;
+      background-image: url('logo.png');
+      background-size: 120px;
+      background-repeat: no-repeat;
+      background-position: center 40px;
+      padding-top: 150px;
+      padding-bottom: 100px;
+    }
+
+    #genderSelection button {
+      margin: 10px;
+      width: 120px;
+      height: 45px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="formContainer">
     <h1>🎧 Échoscope</h1>
 
-    <!-- Question 1 : Sexe -->
+    <!-- Page de genre -->
     <div id="genderSelection">
-      <label>Are you a man or a woman?</label>
-      <button type="button" id="manBtn">👨 Man</button>
-      <button type="button" id="womanBtn">👩 Woman</button>
+      <p>Before we begin...</p>
+      <label>Are you a boy or a girl?</label><br>
+      <button type="button" id="manBtn">👨 Boy</button>
+      <button type="button" id="womanBtn">👩 Girl</button>
     </div>
 
     <!-- Formulaire principal -->
@@ -99,58 +119,85 @@
 
       <label>Quel est ton signe astrologique ?</label>
       <select name="astro">
-        <option>Bélier</option>
-        <option>Taureau</option>
-        <option>Gémeaux</option>
-        <option>Cancer</option>
-        <option>Lion</option>
-        <option>Vierge</option>
-        <option>Balance</option>
-        <option>Scorpion</option>
-        <option>Sagittaire</option>
-        <option>Capricorne</option>
-        <option>Verseau</option>
-        <option>Poissons</option>
+        <option>Bélier</option><option>Taureau</option><option>Gémeaux</option>
+        <option>Cancer</option><option>Lion</option><option>Vierge</option>
+        <option>Balance</option><option>Scorpion</option><option>Sagittaire</option>
+        <option>Capricorne</option><option>Verseau</option><option>Poissons</option>
       </select>
 
       <label>Dans quel pays vis-tu ?</label>
       <input type="text" name="country" placeholder="Ex: Maroc" required>
+
+      <label>Quelles matières aimais-tu le plus à l’école ?</label>
+      <textarea name="subjects" placeholder="Ex: mathématiques, art, biologie..." rows="2"></textarea>
 
       <label>Quel type d’activité t’attire le plus ?</label>
       <select name="activity">
         <option value="creative">Créer, imaginer, inventer</option>
         <option value="logic">Analyser, résoudre des problèmes</option>
         <option value="help">Aider, enseigner, soigner</option>
-        <option value="lead">Diriger, organiser, influencer</option>
+        <option value="lead">Diriger, influencer, décider</option>
         <option value="manual">Fabriquer, construire, réparer</option>
       </select>
 
-      <label>Quel environnement préfères-tu ?</label>
+      <label>Quel environnement de travail préfères-tu ?</label>
       <select name="environment">
         <option value="office">Bureau calme et organisé</option>
-        <option value="outdoor">Extérieur, mouvement, nature</option>
-        <option value="artistic">Ambiance créative et libre</option>
-        <option value="tech">Technologique et innovant</option>
+        <option value="outdoor">Extérieur, nature, mouvement</option>
+        <option value="artistic">Ambiance libre et créative</option>
+        <option value="tech">Milieu innovant et technologique</option>
+        <option value="social">En contact constant avec les gens</option>
       </select>
 
-      <label>Quels sont tes principaux traits de personnalité ?</label>
-      <select name="personality">
-        <option value="analytical">Analytique</option>
-        <option value="empathetic">Empathique</option>
-        <option value="leader">Leader</option>
-        <option value="creative">Créatif</option>
-        <option value="practical">Pratique</option>
+      <label>Comment prends-tu tes décisions ?</label>
+      <select name="decision">
+        <option value="logic">Avec logique et analyse</option>
+        <option value="emotion">Selon mes émotions et mon intuition</option>
+        <option value="mix">Un mélange des deux</option>
       </select>
 
-      <label>Quels sont tes loisirs préférés ?</label>
-      <textarea name="hobbies" placeholder="Ex: musique, sport, lecture, voyage..." rows="2"></textarea>
+      <label>Comment réagis-tu face au stress ?</label>
+      <select name="stress">
+        <option value="calm">Je reste calme et rationnel</option>
+        <option value="emotional">Je panique ou me décourage vite</option>
+        <option value="focused">Je deviens plus concentré et fort</option>
+      </select>
 
-      <label>Quelles valeurs sont les plus importantes pour toi ?</label>
+      <label>Préféres-tu travailler seul ou en équipe ?</label>
+      <select name="teamwork">
+        <option value="alone">Seul</option>
+        <option value="team">En équipe</option>
+        <option value="both">Les deux selon la situation</option>
+      </select>
+
+      <label>Quels sont tes plus grands rêves ou objectifs ?</label>
+      <textarea name="goals" placeholder="Ex: créer une entreprise, voyager, inspirer les autres..." rows="2"></textarea>
+
+      <label>Quelles valeurs te définissent le plus ?</label>
       <select name="values">
         <option value="freedom">Liberté et indépendance</option>
         <option value="security">Stabilité et sécurité</option>
-        <option value="impact">Aider et inspirer les autres</option>
+        <option value="impact">Aider les autres</option>
         <option value="innovation">Innovation et progrès</option>
+        <option value="success">Réussite et reconnaissance</option>
+      </select>
+
+      <label>Comment préfères-tu apprendre ?</label>
+      <select name="learning">
+        <option value="visual">En regardant et observant</option>
+        <option value="practical">En pratiquant directement</option>
+        <option value="theoretical">En lisant et analysant</option>
+        <option value="social">En échangeant avec les autres</option>
+      </select>
+
+      <label>Quelles activités te font perdre la notion du temps ?</label>
+      <textarea name="flow" placeholder="Ex: écrire, coder, chanter, réparer..." rows="2"></textarea>
+
+      <label>Comment définirais-tu ton énergie naturelle ?</label>
+      <select name="energy">
+        <option value="calm">Calme, posé</option>
+        <option value="dynamic">Dynamique, énergique</option>
+        <option value="balanced">Équilibré</option>
       </select>
 
       <button type="submit">Découvrir mon métier idéal</button>
@@ -185,17 +232,26 @@
       e.preventDefault();
       const data = new FormData(form);
       const activity = data.get('activity');
-      const personality = data.get('personality');
-      const values = data.get('values');
+      const personality = data.get('values');
+      const decision = data.get('decision');
+      const teamwork = data.get('teamwork');
+      const energy = data.get('energy');
 
       let career = "✨ Ton profil est unique !";
 
-      if (activity === "creative" && personality === "creative") career = "🎨 Designer, styliste ou réalisateur";
-      else if (activity === "logic" && personality === "analytical") career = "💻 Ingénieur, data scientist ou chercheur";
-      else if (activity === "help" && personality === "empathetic") career = "🩺 Psychologue, enseignant ou travailleur social";
-      else if (activity === "lead" && personality === "leader") career = "👔 Chef de projet, entrepreneur ou manager";
-      else if (activity === "manual" && personality === "practical") career = "🔧 Artisan, architecte ou technicien";
-      else if (values === "innovation") career = "🚀 Entrepreneur innovant ou développeur IA";
+      // Logique simplifiée (plus tard remplacée par IA)
+      if (activity === "creative") career = "🎨 Designer, artiste, réalisateur ou créateur de contenu";
+      else if (activity === "logic") career = "💻 Ingénieur, analyste, data scientist ou chercheur";
+      else if (activity === "help") career = "🩺 Psychologue, enseignant, coach, médecin ou travailleur social";
+      else if (activity === "lead") career = "👔 Entrepreneur, manager, politicien ou stratège";
+      else if (activity === "manual") career = "🔧 Architecte, artisan, technicien, ou mécanicien";
+
+      if (decision === "emotion" && personality === "impact") 
+        career = "💬 Communicateur, influenceur, thérapeute ou journaliste";
+      if (teamwork === "alone" && activity === "logic")
+        career = "🧠 Développeur, data analyst ou programmeur IA";
+      if (energy === "dynamic" && activity === "lead")
+        career = "🚀 Chef de projet, marketeur, organisateur d’événements";
 
       resultDiv.classList.remove('hidden');
       resultDiv.innerHTML = `Résultat : <br>${career}`;
@@ -204,3 +260,5 @@
   </script>
 </body>
 </html>
+
+    
