@@ -1,32 +1,158 @@
-
-<hl lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Échoscope - Découvre ton métier idéal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family:'Poppins',sans-serif; margin:0; padding:0; transition: background 0.6s; }
-    .container { max-width:700px; margin:50px auto; background color:white
-      ; border-radius:25px; padding:35px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
-    h1{text-align:center;margin-bottom:25px;}
-    label{display:block;margin-top:15px;font-weight:600;}
-    input, select, textarea, button{width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #ccc;font-size:15px;}
-    button{margin-top:20px;background-color:black;color:white;border:none;cursor:pointer;transition:0.3s;}
-    button:hover{background-color:black;}
-    .result{margin-top:30px;padding:20px;border-radius:10px;background:rgba(0,0,0,0.05);text-align:center;font-weight:600;}
-    .male-theme{background-color:#e3f0ff;}
-    .female-theme{background-color:#ffe3f0;}
-    .hidden{display:none;}
-    #genderSelection{text-align:center;background-image:url('Untitled(2)');background-size:120px;background-repeat:no-repeat;background-position:center 40px;padding-top:150px;padding-bottom:100px;}
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #0f0f1f, #000);
+      color: #fff;
+      transition: background 0.8s ease;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 25px;
+      padding: 40px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 25px rgba(255,255,255,0.1);
+      transition: 0.6s;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: 500;
+      color: #ddd;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      margin-top: 25px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #4a4aef, #2a2a9f);
+      color: white;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .result {
+      margin-top: 35px;
+      padding: 25px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-weight: 500;
+      color: #fff;
+      animation: fadeIn 1s ease;
+    }
+
+    .hidden { display: none; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Thèmes */
+    .male-theme {
+      background: radial-gradient(circle at top, #001830, #000);
+    }
+
+    .female-theme {
+      background: radial-gradient(circle at top, #3a002f, #000);
+    }
+
+    /* Sélection de genre */
+    #genderSelection {
+      text-align: center;
+      padding: 100px 30px;
+    }
+
+    #genderSelection p {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #genderSelection button {
+      width: 45%;
+      margin: 10px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-weight: 500;
+      border-radius: 15px;
+    }
+
+    #genderSelection button:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.05);
+    }
+
+    /* Ajout du logo futuriste */
+    #logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 100px;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+    }
+
   </style>
 </head>
 <body>
 <div class="container">
-  <h1>🎧 Échoscope</h1>
+  <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/OOjs_UI_icon_audio.svg/1200px-OOjs_UI_icon_audio.svg.png" alt="Logo Échoscope">
+  <h1>Échoscope</h1>
 
   <div id="genderSelection">
     <p>Avant de commencer...</p>
-    <label>Es-tu un homme ou une femme ?</label><br>
+    <label>Choisis ton genre :</label><br>
     <button type="button" id="manBtn">👨 Homme</button>
     <button type="button" id="womanBtn">👩 Femme</button>
   </div>
@@ -97,7 +223,7 @@
       <option value="balanced">Équilibré</option>
     </select>
 
-    <button type="submit">Découvrir mon métier idéal</button>
+    <button type="submit">Découvrir mon métier idéal 🚀</button>
   </form>
 
   <div id="result" class="result hidden"></div>
@@ -122,31 +248,22 @@ document.getElementById('womanBtn').addEventListener('click', () => {
   careerForm.classList.remove('hidden');
 });
 
-// Mock AI function
+// Mock AI (analyse simulée)
 function mockAI(answers) {
   let jobs = [];
-  if (answers.activity === 'creative') jobs = ["Designer", "Artiste", "Rédacteur"];
-  if (answers.activity === 'logic') jobs = ["Développeur", "Ingénieur", "Analyste"];
-  if (answers.activity === 'help') jobs = ["Médecin", "Enseignant", "Psychologue"];
-  if (answers.activity === 'lead') jobs = ["Manager", "Entrepreneur", "Politicien"];
-  if (answers.activity === 'manual') jobs = ["Chef cuisinier", "Artisan", "Mécanicien"];
+  if (answers.activity === 'creative') jobs = ["Designer UX/UI", "Réalisateur", "Directeur artistique"];
+  if (answers.activity === 'logic') jobs = ["Ingénieur IA", "Développeur backend", "Analyste data"];
+  if (answers.activity === 'help') jobs = ["Coach de vie", "Enseignant", "Thérapeute"];
+  if (answers.activity === 'lead') jobs = ["Entrepreneur", "Chef de projet", "Consultant stratégique"];
+  if (answers.activity === 'manual') jobs = ["Architecte d’intérieur", "Chef cuisinier", "Technicien en robotique"];
 
-  return `Selon tes réponses, les métiers qui te correspondent le mieux sont : <br><strong>${jobs.join(', ')}</strong>`;
+  return `🔮 Selon ton profil, les métiers qui te correspondent le mieux sont :<br><br><strong>${jobs.join(', ')}</strong><br><br>✨ Continue à explorer ton potentiel avec Échoscope.`;
 }
 
-// Form submission
 careerForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const data = new FormData(careerForm);
-  const answers = {
-    activity: data.get('activity'),
-    personality: data.get('personality'),
-    values: data.get('values'),
-    hobbies: data.get('hobbies'),
-    decision: data.get('decision'),
-    teamwork: data.get('teamwork'),
-    energy: data.get('energy')
-  };
+  const answers = Object.fromEntries(data.entries());
   const result = mockAI(answers);
   resultDiv.innerHTML = result;
   resultDiv.classList.remove('hidden');
@@ -155,4 +272,5 @@ careerForm.addEventListener('submit', (e) => {
 </script>
 </body>
 </html>
+
 
