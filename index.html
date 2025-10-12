@@ -3,264 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Échoscope - Trouve ton métier idéal</title>
+  <title>Échoscope - Découvre ton métier idéal</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f7f7f7;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.6s ease, color 0.6s ease;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 70px auto;
-      background: white;
-      border-radius: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      padding: 35px;
-      transition: background-color 0.6s ease;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-    }
-
-    input, select, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-    }
-
-    button {
-      margin-top: 20px;
-      background-color: #4a4aef;
-      color: white;
-      cursor: pointer;
-      border: none;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #2f2fcf;
-    }
-
-    .result {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: rgba(0,0,0,0.05);
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    /* Thèmes */
-    .male-theme {
-      background-color: #e3f0ff;
-    }
-
-    .female-theme {
-      background-color: #ffe3f0;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Page d'accueil avec logo */
-    #genderSelection {
-      text-align: center;
-      background-image: url('Untitled (2).png');
-      background-size: 120px;
-      background-repeat: no-repeat;
-      background-position: center 40px;
-      padding-top: 150px;
-      padding-bottom: 100px;
-    }
-
-    #genderSelection button {
-      margin: 10px;
-      width: 120px;
-      height: 45px;
-      font-size: 16px;
-      border-radius: 12px;
-    }
+    body { font-family:'Poppins',sans-serif; margin:0; padding:0; transition: background 0.6s; }
+    .container { max-width:700px; margin:50px auto; background:#fff; border-radius:25px; padding:35px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+    h1{text-align:center;margin-bottom:25px;}
+    label{display:block;margin-top:15px;font-weight:600;}
+    input, select, textarea, button{width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #ccc;font-size:15px;}
+    button{margin-top:20px;background-color:#4a4aef;color:white;border:none;cursor:pointer;transition:0.3s;}
+    button:hover{background-color:#2f2fcf;}
+    .result{margin-top:30px;padding:20px;border-radius:10px;background:rgba(0,0,0,0.05);text-align:center;font-weight:600;}
+    .male-theme{background-color:#e3f0ff;}
+    .female-theme{background-color:#ffe3f0;}
+    .hidden{display:none;}
+    #genderSelection{text-align:center;background-image:url('Untitled(2)');background-size:120px;background-repeat:no-repeat;background-position:center 40px;padding-top:150px;padding-bottom:100px;}
   </style>
 </head>
 <body>
-  <div class="container" id="formContainer">
-    <h1>🎧 Échoscope</h1>
+<div class="container">
+  <h1>🎧 Échoscope</h1>
 
-    <!-- Page de genre -->
-    <div id="genderSelection">
-      <p>Échoscope est une expérience interactive qui t’aide à découvrir le métier fait pour toi.
-À travers des questions introspectives et une touche d’intelligence artificielle, ton profil révèle enfin ce qui te correspond vraiment.<br>
-        Before we begin</p>
-      <label>Are you a boy or a girl?</label><br>
-      <button type="button" id="manBtn">👨 Boy</button>
-      <button type="button" id="womanBtn">👩 Girl</button>
-    </div>
-
-    <!-- Formulaire principal -->
-    <form id="careerForm" class="hidden">
-      <label>Quelle est ta date de naissance ?</label>
-      <input type="date" name="birthdate" required>
-
-      <label>Quel est ton signe astrologique ?</label>
-      <select name="astro">
-        <option>Bélier</option><option>Taureau</option><option>Gémeaux</option>
-        <option>Cancer</option><option>Lion</option><option>Vierge</option>
-        <option>Balance</option><option>Scorpion</option><option>Sagittaire</option>
-        <option>Capricorne</option><option>Verseau</option><option>Poissons</option>
-      </select>
-
-      <label>Dans quel pays vis-tu ?</label>
-      <input type="text" name="country" placeholder="Ex: Maroc" required>
-
-      <label>Quelles matières aimais-tu le plus à l’école ?</label>
-      <textarea name="subjects" placeholder="Ex: mathématiques, art, biologie..." rows="2"></textarea>
-
-      <label>Quel type d’activité t’attire le plus ?</label>
-      <select name="activity">
-        <option value="creative">Créer, imaginer, inventer</option>
-        <option value="logic">Analyser, résoudre des problèmes</option>
-        <option value="help">Aider, enseigner, soigner</option>
-        <option value="lead">Diriger, influencer, décider</option>
-        <option value="manual">Fabriquer, construire, réparer</option>
-      </select>
-
-      <label>Quel environnement de travail préfères-tu ?</label>
-      <select name="environment">
-        <option value="office">Bureau calme et organisé</option>
-        <option value="outdoor">Extérieur, nature, mouvement</option>
-        <option value="artistic">Ambiance libre et créative</option>
-        <option value="tech">Milieu innovant et technologique</option>
-        <option value="social">En contact constant avec les gens</option>
-      </select>
-
-      <label>Comment prends-tu tes décisions ?</label>
-      <select name="decision">
-        <option value="logic">Avec logique et analyse</option>
-        <option value="emotion">Selon mes émotions et mon intuition</option>
-        <option value="mix">Un mélange des deux</option>
-      </select>
-
-      <label>Comment réagis-tu face au stress ?</label>
-      <select name="stress">
-        <option value="calm">Je reste calme et rationnel</option>
-        <option value="emotional">Je panique ou me décourage vite</option>
-        <option value="focused">Je deviens plus concentré et fort</option>
-      </select>
-
-      <label>Préféres-tu travailler seul ou en équipe ?</label>
-      <select name="teamwork">
-        <option value="alone">Seul</option>
-        <option value="team">En équipe</option>
-        <option value="both">Les deux selon la situation</option>
-      </select>
-
-      <label>Quels sont tes plus grands rêves ou objectifs ?</label>
-      <textarea name="goals" placeholder="Ex: créer une entreprise, voyager, inspirer les autres..." rows="2"></textarea>
-
-      <label>Quelles valeurs te définissent le plus ?</label>
-      <select name="values">
-        <option value="freedom">Liberté et indépendance</option>
-        <option value="security">Stabilité et sécurité</option>
-        <option value="impact">Aider les autres</option>
-        <option value="innovation">Innovation et progrès</option>
-        <option value="success">Réussite et reconnaissance</option>
-      </select>
-
-      <label>Comment préfères-tu apprendre ?</label>
-      <select name="learning">
-        <option value="visual">En regardant et observant</option>
-        <option value="practical">En pratiquant directement</option>
-        <option value="theoretical">En lisant et analysant</option>
-        <option value="social">En échangeant avec les autres</option>
-      </select>
-
-      <label>Quelles activités te font perdre la notion du temps ?</label>
-      <textarea name="flow" placeholder="Ex: écrire, coder, chanter, réparer..." rows="2"></textarea>
-
-      <label>Comment définirais-tu ton énergie naturelle ?</label>
-      <select name="energy">
-        <option value="calm">Calme, posé</option>
-        <option value="dynamic">Dynamique, énergique</option>
-        <option value="balanced">Équilibré</option>
-      </select>
-
-      <button type="submit">Découvrir mon métier idéal</button>
-    </form>
-
-    <div id="result" class="result hidden"></div>
+  <div id="genderSelection">
+    <p>Avant de commencer...</p>
+    <label>Es-tu un homme ou une femme ?</label><br>
+    <button type="button" id="manBtn">👨 Homme</button>
+    <button type="button" id="womanBtn">👩 Femme</button>
   </div>
 
-  <script>
-    const manBtn = document.getElementById('manBtn');
-    const womanBtn = document.getElementById('womanBtn');
-    const formContainer = document.getElementById('formContainer');
-    const form = document.getElementById('careerForm');
-    const genderSelection = document.getElementById('genderSelection');
-    const resultDiv = document.getElementById('result');
+  <form id="careerForm" class="hidden">
+    <label>Quelle est ta date de naissance ?</label>
+    <input type="date" name="birthdate" required>
 
-    manBtn.addEventListener('click', () => {
-      document.body.classList.remove('female-theme');
-      document.body.classList.add('male-theme');
-      genderSelection.classList.add('hidden');
-      form.classList.remove('hidden');
-    });
+    <label>Quel est ton signe astrologique ?</label>
+    <select name="astro">
+      <option>Bélier</option><option>Taureau</option><option>Gémeaux</option>
+      <option>Cancer</option><option>Lion</option><option>Vierge</option>
+      <option>Balance</option><option>Scorpion</option><option>Sagittaire</option>
+      <option>Capricorne</option><option>Verseau</option><option>Poissons</option>
+    </select>
 
-    womanBtn.addEventListener('click', () => {
-      document.body.classList.remove('male-theme');
-      document.body.classList.add('female-theme');
-      genderSelection.classList.add('hidden');
-      form.classList.remove('hidden');
-    });
+    <label>Pays :</label>
+    <input type="text" name="country" placeholder="Ex: Maroc" required>
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const activity = data.get('activity');
-      const personality = data.get('values');
-      const decision = data.get('decision');
-      const teamwork = data.get('teamwork');
-      const energy = data.get('energy');
+    <label>Activité préférée :</label>
+    <select name="activity">
+      <option value="creative">Créer / imaginer</option>
+      <option value="logic">Analyser / résoudre</option>
+      <option value="help">Aider / enseigner</option>
+      <option value="lead">Diriger / influencer</option>
+      <option value="manual">Fabriquer / construire</option>
+    </select>
 
-      let career = "✨ Ton profil est unique !";
+    <label>Traits de personnalité :</label>
+    <select name="personality">
+      <option value="analytical">Analytique</option>
+      <option value="empathetic">Empathique</option>
+      <option value="leader">Leader</option>
+      <option value="creative">Créatif</option>
+      <option value="practical">Pratique</option>
+    </select>
 
-      // Logique simplifiée (plus tard remplacée par IA)
-      if (activity === "creative") career = "🎨 Designer, artiste, réalisateur ou créateur de contenu";
-      else if (activity === "logic") career = "💻 Ingénieur, analyste, data scientist ou chercheur";
-      else if (activity === "help") career = "🩺 Psychologue, enseignant, coach, médecin ou travailleur social";
-      else if (activity === "lead") career = "👔 Entrepreneur, manager, politicien ou stratège";
-      else if (activity === "manual") career = "🔧 Architecte, artisan, technicien, ou mécanicien";
+    <label>Valeurs principales :</label>
+    <select name="values">
+      <option value="freedom">Liberté</option>
+      <option value="security">Sécurité</option>
+      <option value="impact">Aider les autres</option>
+      <option value="innovation">Innovation</option>
+      <option value="success">Succès</option>
+    </select>
 
-      if (decision === "emotion" && personality === "impact") 
-        career = "💬 Communicateur, influenceur, thérapeute ou journaliste";
-      if (teamwork === "alone" && activity === "logic")
-        career = "🧠 Développeur, data analyst ou programmeur IA";
-      if (energy === "dynamic" && activity === "lead")
-        career = "🚀 Chef de projet, marketeur, organisateur d’événements";
+    <label>Loisirs :</label>
+    <textarea name="hobbies" rows="2" placeholder="Ex: musique, sport, lecture..."></textarea>
 
-      resultDiv.classList.remove('hidden');
-      resultDiv.innerHTML = `Résultat : <br>${career}`;
-      form.reset();
-    });
-  </script>
+    <label>Décision :</label>
+    <select name="decision">
+      <option value="logic">Logique</option>
+      <option value="emotion">Émotion</option>
+      <option value="mix">Mixte</option>
+    </select>
+
+    <label>Travail en équipe :</label>
+    <select name="teamwork">
+      <option value="alone">Seul</option>
+      <option value="team">Équipe</option>
+      <option value="both">Les deux</option>
+    </select>
+
+    <label>Énergie naturelle :</label>
+    <select name="energy">
+      <option value="calm">Calme</option>
+      <option value="dynamic">Dynamique</option>
+      <option value="balanced">Équilibré</option>
+    </select>
+
+    <button type="submit">Découvrir mon métier idéal</button>
+  </form>
+
+  <div id="result" class="result hidden"></div>
+</div>
+
+<script>
+const genderSelection = document.getElementById('genderSelection');
+const careerForm = document.getElementById('careerForm');
+const resultDiv = document.getElementById('result');
+
+document.getElementById('manBtn').addEventListener('click', () => {
+  document.body.classList.add('male-theme');
+  document.body.classList.remove('female-theme');
+  genderSelection.classList.add('hidden');
+  careerForm.classList.remove('hidden');
+});
+
+document.getElementById('womanBtn').addEventListener('click', () => {
+  document.body.classList.add('female-theme');
+  document.body.classList.remove('male-theme');
+  genderSelection.classList.add('hidden');
+  careerForm.classList.remove('hidden');
+});
+
+// Mock AI function
+function mockAI(answers) {
+  let jobs = [];
+  if (answers.activity === 'creative') jobs = ["Designer", "Artiste", "Rédacteur"];
+  if (answers.activity === 'logic') jobs = ["Développeur", "Ingénieur", "Analyste"];
+  if (answers.activity === 'help') jobs = ["Médecin", "Enseignant", "Psychologue"];
+  if (answers.activity === 'lead') jobs = ["Manager", "Entrepreneur", "Politicien"];
+  if (answers.activity === 'manual') jobs = ["Chef cuisinier", "Artisan", "Mécanicien"];
+
+  return `Selon tes réponses, les métiers qui te correspondent le mieux sont : <br><strong>${jobs.join(', ')}</strong>`;
+}
+
+// Form submission
+careerForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = new FormData(careerForm);
+  const answers = {
+    activity: data.get('activity'),
+    personality: data.get('personality'),
+    values: data.get('values'),
+    hobbies: data.get('hobbies'),
+    decision: data.get('decision'),
+    teamwork: data.get('teamwork'),
+    energy: data.get('energy')
+  };
+  const result = mockAI(answers);
+  resultDiv.innerHTML = result;
+  resultDiv.classList.remove('hidden');
+  window.scrollTo({ top: resultDiv.offsetTop, behavior: 'smooth' });
+});
+</script>
 </body>
 </html>
+
 
     
