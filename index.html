@@ -4,267 +4,191 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Échoscope - Découvre ton métier idéal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #0f0f1f, #000);
-      color: #fff;
-      transition: background 0.8s ease;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 750px;
-      margin: 60px auto;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 25px;
-      padding: 40px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 0 25px rgba(255,255,255,0.1);
-      transition: 0.6s;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      letter-spacing: 1px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    label {
-      display: block;
-      margin-top: 18px;
-      font-weight: 500;
-      color: #ddd;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 10px;
-      border: none;
-      font-size: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      transition: 0.3s;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      margin-top: 25px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: linear-gradient(135deg, #4a4aef, #2a2a9f);
-      color: white;
-    }
-
-    button:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    }
-
-    .result {
-      margin-top: 35px;
-      padding: 25px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      text-align: center;
-      font-weight: 500;
-      color: #fff;
-      animation: fadeIn 1s ease;
-    }
-
-    .hidden { display: none; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Thèmes */
-    .male-theme {
-      background: radial-gradient(circle at top, #001830, #000);
-    }
-
-    .female-theme {
-      background: radial-gradient(circle at top, #3a002f, #000);
-    }
-
-    /* Sélection de genre */
-    #genderSelection {
-      text-align: center;
-      padding: 100px 30px;
-    }
-
-    #genderSelection p {
-      color: #fff;
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
-
-    #genderSelection button {
-      width: 45%;
-      margin: 10px;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      font-weight: 500;
-      border-radius: 15px;
-    }
-
-    #genderSelection button:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.05);
-    }
-
-   
-  </style>
+<style>
+* {box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+body {
+  margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; background: linear-gradient(135deg, #121212, #1f1f1f);
+  color: white; transition: background 0.8s;
+}
+.container {
+  background: rgba(255,255,255,0.05); padding: 30px; border-radius: 20px; width: 90%;
+  max-width: 600px; box-shadow: 0 0 25px rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+}
+h1, h2 {text-align: center;}
+button {
+  background: white; color: black; border: none; padding: 12px 25px;
+  border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 10px;
+  transition: transform 0.3s;
+}
+button:hover {transform: scale(1.05);}
+input, select {
+  width: 100%; padding: 10px; margin-top: 10px; border-radius: 10px; border: none;
+}
+.hidden {display: none;}
+.result {
+  text-align: center; background: rgba(255,255,255,0.1); padding: 20px;
+  border-radius: 15px; margin-top: 20px;
+}
+</style>
 </head>
 <body>
-
-
-
-  <h1>Échoscope</h1>
-
-  <div id="genderSelection">
-    <p>Avant de commencer...</p>
-    <label>Choisis ton genre :</label><br>
-    <button type="button" id="manBtn">👨 Homme</button>
-    <button type="button" id="womanBtn">👩 Femme</button>
+<div class="container">
+  <div id="gender-screen">
+    <h1>Are you a boy or a girl?</h1>
+    <button onclick="setGender('boy')">Boy 👦</button>
+    <button onclick="setGender('girl')">Girl 👧</button>
   </div>
 
-  <form id="careerForm" class="hidden">
-    <label>Quelle est ta date de naissance ?</label>
-    <input type="date" name="birthdate" required>
+  <div id="form-screen" class="hidden">
+    <h2>Answer these questions to discover your perfect path</h2>
+    <form id="careerForm">
+      <label>1. What is your birth date?</label>
+      <input type="date" id="birthdate" required>
 
-    <label>Quel est ton signe astrologique ?</label>
-    <select name="astro">
-      <option>Bélier</option><option>Taureau</option><option>Gémeaux</option>
-      <option>Cancer</option><option>Lion</option><option>Vierge</option>
-      <option>Balance</option><option>Scorpion</option><option>Sagittaire</option>
-      <option>Capricorne</option><option>Verseau</option><option>Poissons</option>
-    </select>
+      <label>2. What are your favorite school subjects?</label>
+      <input type="text" id="subjects">
 
-    <label>Pays :</label>
-    <input type="text" name="country" placeholder="Ex: Maroc" required>
+      <label>3. What’s your favorite color?</label>
+      <input type="text" id="color">
 
-    <label>Activité préférée :</label>
-    <select name="activity">
-      <option value="creative">Créer / imaginer</option>
-      <option value="logic">Analyser / résoudre</option>
-      <option value="help">Aider / enseigner</option>
-      <option value="lead">Diriger / influencer</option>
-      <option value="manual">Fabriquer / construire</option>
-    </select>
+      <label>4. What kind of activities excite you most?</label>
+      <input type="text" id="activities">
 
-    <label>Traits de personnalité :</label>
-    <select name="personality">
-      <option value="analytical">Analytique</option>
-      <option value="empathetic">Empathique</option>
-      <option value="leader">Leader</option>
-      <option value="creative">Créatif</option>
-      <option value="practical">Pratique</option>
-    </select>
+      <label>5. Do you prefer working alone or in a team?</label>
+      <select id="team">
+        <option>Alone</option><option>In a team</option><option>Both</option>
+      </select>
 
-    <label>Valeurs principales :</label>
-    <select name="values">
-      <option value="freedom">Liberté</option>
-      <option value="security">Sécurité</option>
-      <option value="impact">Aider les autres</option>
-      <option value="innovation">Innovation</option>
-      <option value="success">Succès</option>
-    </select>
+      <label>6. Are you more logical or creative?</label>
+      <select id="logic">
+        <option>Logical</option><option>Creative</option><option>Balanced</option>
+      </select>
 
-    <label>Loisirs :</label>
-    <textarea name="hobbies" rows="2" placeholder="Ex: musique, sport, lecture..."></textarea>
+      <label>7. Do you like helping people?</label>
+      <select id="help">
+        <option>Yes</option><option>No</option><option>Sometimes</option>
+      </select>
 
-    <label>Décision :</label>
-    <select name="decision">
-      <option value="logic">Logique</option>
-      <option value="emotion">Émotion</option>
-      <option value="mix">Mixte</option>
-    </select>
+      <label>8. Are you patient or fast-paced?</label>
+      <select id="pace">
+        <option>Patient</option><option>Fast-paced</option><option>Flexible</option>
+      </select>
 
-    <label>Travail en équipe :</label>
-    <select name="teamwork">
-      <option value="alone">Seul</option>
-      <option value="team">Équipe</option>
-      <option value="both">Les deux</option>
-    </select>
+      <label>9. Do you enjoy solving problems?</label>
+      <select id="problems"><option>Yes</option><option>No</option></select>
 
-    <label>Énergie naturelle :</label>
-    <select name="energy">
-      <option value="calm">Calme</option>
-      <option value="dynamic">Dynamique</option>
-      <option value="balanced">Équilibré</option>
-    </select>
+      <label>10. What motivates you the most?</label>
+      <input type="text" id="motivation">
 
-    <button type="submit">Découvrir mon métier idéal 🚀</button>
-  </form>
+      <label>11. Do you like math?</label>
+      <select id="math"><option>Yes</option><option>No</option></select>
 
-  <div id="result" class="result hidden"></div>
+      <label>12. Do you like science?</label>
+      <select id="science"><option>Yes</option><option>No</option></select>
+
+      <label>13. Do you like literature?</label>
+      <select id="literature"><option>Yes</option><option>No</option></select>
+
+      <label>14. Do you like technology?</label>
+      <select id="tech"><option>Yes</option><option>No</option></select>
+
+      <label>15. What’s your dream lifestyle?</label>
+      <input type="text" id="lifestyle">
+
+      <label>16. Do you like nature or cities?</label>
+      <select id="environment">
+        <option>Nature</option><option>Cities</option><option>Both</option>
+      </select>
+
+      <label>17. Do you like speaking in public?</label>
+      <select id="public">
+        <option>Yes</option><option>No</option><option>Sometimes</option>
+      </select>
+
+      <label>18. Do you enjoy working with data?</label>
+      <select id="data"><option>Yes</option><option>No</option></select>
+
+      <label>19. Do you like art?</label>
+      <select id="art"><option>Yes</option><option>No</option></select>
+
+      <label>20. Do you like designing things?</label>
+      <select id="design"><option>Yes</option><option>No</option></select>
+
+      <label>21. Are you interested in health and biology?</label>
+      <select id="health"><option>Yes</option><option>No</option></select>
+
+      <label>22. Are you good at organizing things?</label>
+      <select id="organization"><option>Yes</option><option>No</option></select>
+
+      <label>23. Do you like debate and communication?</label>
+      <select id="communication"><option>Yes</option><option>No</option></select>
+
+      <label>24. Are you spiritual or rational?</label>
+      <select id="spirituality"><option>Spiritual</option><option>Rational</option><option>Both</option></select>
+
+      <label>25. What’s your biggest dream in life?</label>
+      <input type="text" id="dream">
+
+      <button type="button" onclick="analyze()">Analyse my profile 🔮</button>
+    </form>
+    <div id="result" class="result hidden"></div>
+  </div>
 </div>
 
 <script>
-const genderSelection = document.getElementById('genderSelection');
-const careerForm = document.getElementById('careerForm');
-const resultDiv = document.getElementById('result');
-
-document.getElementById('manBtn').addEventListener('click', () => {
-  document.body.classList.add('male-theme');
-  document.body.classList.remove('female-theme');
-  genderSelection.classList.add('hidden');
-  careerForm.classList.remove('hidden');
-});
-
-document.getElementById('womanBtn').addEventListener('click', () => {
-  document.body.classList.add('female-theme');
-  document.body.classList.remove('male-theme');
-  genderSelection.classList.add('hidden');
-  careerForm.classList.remove('hidden');
-});
-
-// Mock AI (analyse simulée)
-function mockAI(answers) {
-  let jobs = [];
-  if (answers.activity === 'creative') jobs = ["Designer UX/UI", "Réalisateur", "Directeur artistique"];
-  if (answers.activity === 'logic') jobs = ["Ingénieur IA", "Développeur backend", "Analyste data"];
-  if (answers.activity === 'help') jobs = ["Coach de vie", "Enseignant", "Thérapeute"];
-  if (answers.activity === 'lead') jobs = ["Entrepreneur", "Chef de projet", "Consultant stratégique"];
-  if (answers.activity === 'manual') jobs = ["Architecte d’intérieur", "Chef cuisinier", "Technicien en robotique"];
-
-  return `🔮 Selon ton profil, les métiers qui te correspondent le mieux sont :<br><br><strong>${jobs.join(', ')}</strong><br><br>✨ Continue à explorer ton potentiel avec Échoscope.`;
+let gender = "";
+function setGender(g) {
+  gender = g;
+  document.getElementById("gender-screen").classList.add("hidden");
+  document.getElementById("form-screen").classList.remove("hidden");
+  if (gender === "boy") document.body.style.background = "linear-gradient(135deg,#007bff,#001f4d)";
+  else document.body.style.background = "linear-gradient(135deg,#ff69b4,#8b008b)";
 }
 
-careerForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const data = new FormData(careerForm);
-  const answers = Object.fromEntries(data.entries());
-  const result = mockAI(answers);
-  resultDiv.innerHTML = result;
-  resultDiv.classList.remove('hidden');
-  window.scrollTo({ top: resultDiv.offsetTop, behavior: 'smooth' });
-});
+function analyze() {
+  const s = id => document.getElementById(id).value.toLowerCase();
+  let scoreScience = 0, scoreArt = 0, scoreLiterature = 0, scoreBusiness = 0;
+
+  if (s("science")==="yes") scoreScience++;
+  if (s("math")==="yes") scoreScience++;
+  if (s("tech")==="yes") scoreScience++;
+  if (s("art")==="yes"||s("design")==="yes") scoreArt+=2;
+  if (s("literature")==="yes"||s("communication")==="yes") scoreLiterature+=2;
+  if (s("organization")==="yes") scoreBusiness++;
+  if (s("data")==="yes") scoreBusiness++;
+  if (s("help")==="yes"||s("health")==="yes") scoreScience++;
+  if (s("logic")==="creative") scoreArt++;
+  if (s("logic")==="logical") scoreScience++;
+  if (s("logic")==="balanced") {scoreScience++; scoreArt++;}
+  
+  let field="", job="";
+  if (scoreScience>scoreArt && scoreScience>scoreLiterature && scoreScience>scoreBusiness) {
+    field="Scientific Field (Math, Physics, Engineering, or Medicine)";
+    job="Engineer, Doctor, Data Scientist, or Researcher";
+  } else if (scoreArt>=scoreScience && scoreArt>scoreLiterature && scoreArt>scoreBusiness) {
+    field="Artistic & Creative Field";
+    job="Designer, Filmmaker, Artist, or Fashion Creator";
+  } else if (scoreLiterature>=scoreScience && scoreLiterature>=scoreArt && scoreLiterature>scoreBusiness) {
+    field="Literature, Languages & Communication";
+    job="Writer, Journalist, Psychologist, or Diplomat";
+  } else {
+    field="Business & Management";
+    job="Entrepreneur, Manager, or Financial Analyst";
+  }
+
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("result").innerHTML =
+  `<h2>✨ Your Perfect Field ✨</h2>
+   <p><b>${field}</b></p>
+   <h3>Recommended Career Path:</h3>
+   <p>${job}</p>
+   <p style="opacity:0.8;margin-top:10px;">AI-based analysis inspired by your answers, birth date, and personality ⚡</p>`;
+}
 </script>
 </body>
 </html>
 
 
+    
