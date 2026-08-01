@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,510 +6,316 @@
   <title>Échoscope · Oracle de Carrière</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0b0b0e;
-      padding: 1.5rem;
-      transition: background 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-      transition: all 1.5s ease;
-    }
-    .orb-1 {
-      width: 400px;
-      height: 400px;
-      top: -120px;
-      right: -80px;
-      background: #6c5ce7;
-    }
-    .orb-2 {
-      width: 350px;
-      height: 350px;
-      bottom: -100px;
-      left: -80px;
-      background: #00b894;
-    }
-    .orb-3 {
-      width: 250px;
-      height: 250px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fd79a8;
-      opacity: 0.15;
-    }
-
-    .container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 680px;
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border-radius: 48px;
-      padding: 2.5rem 2.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transition: all 0.4s ease;
-    }
-
-    h1 {
-      font-size: 2.6rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff 0%, #a0a0b0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.15rem;
-    }
-    .subhead {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.45);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      margin-top: -0.2rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom: 1.5rem;
-    }
-    h2 i {
-      font-style: normal;
-      background: linear-gradient(135deg, #a29bfe, #fd79a8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .gender-grid {
-      display: flex;
-      gap: 1.2rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .gender-btn {
-      flex: 1;
-      min-width: 120px;
-      padding: 1.1rem 1.8rem;
-      border-radius: 60px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.02);
-      color: #fff;
-      font-size: 1.15rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      letter-spacing: 0.01em;
-    }
-    .gender-btn:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px) scale(1.02);
-    }
-    .gender-btn:active {
-      transform: scale(0.97);
-    }
-    .gender-btn .emoji {
-      font-size: 1.5rem;
-    }
-    .gender-btn.boy:hover {
-      border-color: #6c5ce7;
-      box-shadow: 0 0 30px rgba(108, 92, 231, 0.15);
-    }
-    .gender-btn.girl:hover {
-      border-color: #fd79a8;
-      box-shadow: 0 0 30px rgba(253, 121, 168, 0.15);
-    }
-
-    .form-screen {
-      animation: fadeSlide 0.5s ease;
-    }
-    @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(18px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .question-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      margin: 1.8rem 0 2rem;
-      max-height: 440px;
-      overflow-y: auto;
-      padding-right: 0.5rem;
-    }
-    .question-grid::-webkit-scrollbar {
-      width: 4px;
-    }
-    .question-grid::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 10px;
-    }
-    .question-grid::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .field-group label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
-    }
-    .field-group input,
-    .field-group select {
-      padding: 0.75rem 1rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(255, 255, 255, 0.03);
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 400;
-      transition: all 0.25s;
-      outline: none;
-      font-family: 'Inter', sans-serif;
-      backdrop-filter: blur(4px);
-    }
-    .field-group input:focus,
-    .field-group select:focus {
-      border-color: rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.06);
-      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.02);
-    }
-    .field-group input::placeholder {
-      color: rgba(255, 255, 255, 0.2);
-      font-weight: 300;
-    }
-    .field-group select option {
-      background: #1a1a1f;
-      color: #fff;
-    }
-
-    .btn-primary {
-      width: 100%;
-      padding: 1.1rem;
-      border: none;
-      border-radius: 60px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-      box-shadow: 0 8px 30px rgba(108, 92, 231, 0.25);
-      letter-spacing: 0.02em;
-      margin-top: 0.5rem;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(108, 92, 231, 0.35);
-    }
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
-
-    .result {
-      margin-top: 2.2rem;
-      padding: 1.8rem 2rem;
-      border-radius: 32px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      text-align: center;
-      animation: fadeSlide 0.6s ease;
-      backdrop-filter: blur(8px);
-    }
-    .result h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
-      -webkit-text-fill-color: #fff;
-      background: none;
-    }
-    .result .badge {
-      display: inline-block;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      background: rgba(108, 92, 231, 0.2);
-      border: 1px solid rgba(108, 92, 231, 0.15);
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #a29bfe;
-      margin-bottom: 0.75rem;
-    }
-    .result .field-name {
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #fff, #b0b0c8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.25rem;
-    }
-    .result .job-title {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.7);
-      font-weight: 400;
-      margin-bottom: 0.8rem;
-    }
-    .result .footnote {
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.2);
-      letter-spacing: 0.04em;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
-      padding-top: 0.8rem;
-      margin-top: 0.8rem;
-    }
-    .result .footnote i {
-      font-style: normal;
-      color: rgba(255, 255, 255, 0.3);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 1.8rem 1.5rem;
-        border-radius: 32px;
-      }
-      h1 {
-        font-size: 2rem;
-      }
-      .gender-grid {
-        flex-direction: column;
-      }
-      .gender-btn {
-        min-width: unset;
-      }
-      .question-grid {
-        max-height: 340px;
-      }
-      .result {
-        padding: 1.4rem;
-      }
-      .result .field-name {
-        font-size: 1.3rem;
-      }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0a0a0f;padding:1.5rem;position:relative;overflow:hidden}
+    .bg-mesh{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 20% 50%,#1a0533 0%,transparent 50%),radial-gradient(circle at 80% 20%,#0a1628 0%,transparent 50%),radial-gradient(circle at 50% 80%,#1a0a0a 0%,transparent 50%),#0a0a0f}
+    .orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.3;pointer-events:none;z-index:1;transition:all 2s ease}
+    .orb-1{width:500px;height:500px;top:-200px;right:-150px;background:#6c5ce7}
+    .orb-2{width:400px;height:400px;bottom:-150px;left:-100px;background:#00b894}
+    .orb-3{width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);background:#fd79a8;opacity:.1}
+    .container{position:relative;z-index:10;width:100%;max-width:720px;background:rgba(255,255,255,.03);backdrop-filter:blur(40px);border-radius:40px;padding:2.8rem 3rem;border:1px solid rgba(255,255,255,.06);box-shadow:0 40px 100px rgba(0,0,0,.8)}
+    @media(max-width:600px){.container{padding:1.8rem 1.5rem;border-radius:28px}}
+    h1{font-size:2.8rem;font-weight:700;letter-spacing:-.04em;background:linear-gradient(135deg,#fff 0%,#8888aa 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.1rem}
+    .subhead{font-size:1rem;color:rgba(255,255,255,.35);font-weight:400;letter-spacing:.04em;margin-top:-.2rem}
+    h2{font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:.5rem;letter-spacing:-.02em}
+    h2 span{background:linear-gradient(135deg,#a29bfe,#fd79a8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .gender-grid{display:flex;gap:1.2rem;margin-top:2.2rem}
+    .gender-btn{flex:1;padding:1.2rem;border-radius:60px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);color:#fff;font-size:1.1rem;font-weight:500;cursor:pointer;transition:all .35s cubic-bezier(.23,1,.32,1);display:flex;align-items:center;justify-content:center;gap:.6rem}
+    .gender-btn:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);transform:translateY(-2px)}
+    .gender-btn.boy:hover{border-color:#6c5ce7;box-shadow:0 0 40px rgba(108,92,231,.15)}
+    .gender-btn.girl:hover{border-color:#fd79a8;box-shadow:0 0 40px rgba(253,121,168,.15)}
+    @media(max-width:600px){.gender-grid{flex-direction:column}}
+    .hidden{display:none!important}
+    .form-screen{animation:fadeSlide .4s ease}
+    @keyframes fadeSlide{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
+    .progress-wrap{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+    .progress-bar{flex:1;height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+    .progress-fill{height:100%;width:0%;background:linear-gradient(90deg,#6c5ce7,#a29bfe);border-radius:4px;transition:width .5s cubic-bezier(.23,1,.32,1)}
+    .progress-text{color:rgba(255,255,255,.3);font-size:.8rem;font-weight:500;min-width:48px;text-align:right}
+    .question-container{min-height:380px;display:flex;flex-direction:column;justify-content:space-between}
+    .question-number{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-bottom:.2rem}
+    .question-label{font-size:1.1rem;font-weight:500;color:#fff;margin-bottom:.3rem}
+    .question-desc{font-size:.85rem;color:rgba(255,255,255,.3);margin-bottom:1.2rem}
+    .field-group{display:flex;flex-direction:column;gap:.5rem}
+    .field-group input,.field-group select{padding:.85rem 1.2rem;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);color:#fff;font-size:.95rem;transition:all .25s;outline:none;font-family:'Inter',sans-serif}
+    .field-group input:focus,.field-group select:focus{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.06);box-shadow:0 0 0 4px rgba(255,255,255,.02)}
+    .field-group input::placeholder{color:rgba(255,255,255,.15);font-weight:300}
+    .field-group select option{background:#14141a;color:#fff}
+    .nav-buttons{display:flex;gap:.8rem;margin-top:1.8rem}
+    .nav-buttons button{flex:1;padding:.9rem;border:none;border-radius:40px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.23,1,.32,1)}
+    .btn-prev{background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.06)}
+    .btn-prev:hover{background:rgba(255,255,255,.08);color:#fff}
+    .btn-next{background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff;box-shadow:0 8px 30px rgba(108,92,231,.2)}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(108,92,231,.3)}
+    .btn-next:disabled{opacity:.3;cursor:not-allowed;transform:none}
+    .btn-submit{background:linear-gradient(135deg,#fd79a8,#a29bfe);color:#fff;box-shadow:0 8px 30px rgba(253,121,168,.2)}
+    .btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(253,121,168,.3)}
+    .result{margin-top:2rem;padding:2rem;border-radius:28px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);animation:fadeSlide .6s ease}
+    .result .badge{display:inline-block;padding:.25rem 1.2rem;border-radius:40px;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.1);font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#a29bfe;margin-bottom:.8rem}
+    .result .field-name{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#fff,#b0b0c8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.2rem}
+    .result .job-title{font-size:1.1rem;color:rgba(255,255,255,.6);font-weight:400;margin-bottom:.3rem}
+    .result .footnote{font-size:.7rem;color:rgba(255,255,255,.15);border-top:1px solid rgba(255,255,255,.03);padding-top:.8rem;margin-top:.8rem}
+    .radar-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:1.2rem 0}
+    @media(max-width:500px){.radar-wrap{grid-template-columns:1fr}}
+    .radar-item{display:flex;flex-direction:column;gap:.2rem}
+    .radar-item .label{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.3)}
+    .radar-item .bar-track{height:6px;background:rgba(255,255,255,.04);border-radius:6px;overflow:hidden}
+    .radar-item .bar-fill{height:100%;border-radius:6px;width:0%;transition:width 1.2s cubic-bezier(.23,1,.32,1)}
+    .radar-item .score{font-size:.7rem;color:rgba(255,255,255,.2);text-align:right}
+    .typewriter{overflow:hidden;border-right:2px solid rgba(255,255,255,.1);white-space:nowrap;animation:typing 2s steps(30,end),blink .8s step-end infinite}@keyframes typing{from{width:0}to{width:100%}}@keyframes blink{50%{border-color:transparent}}
   </style>
 </head>
 <body>
 
-  <div class="orb orb-1" id="orb1"></div>
-  <div class="orb orb-2" id="orb2"></div>
-  <div class="orb orb-3" id="orb3"></div>
+<div class="bg-mesh"></div>
+<div class="orb orb-1" id="orb1"></div>
+<div class="orb orb-2" id="orb2"></div>
+<div class="orb orb-3" id="orb3"></div>
 
-  <div class="container" id="app">
-    <div id="gender-screen">
-      <h1>Échoscope</h1>
-      <p class="subhead">L'oracle qui révèle ta voie</p>
-      <div class="gender-grid">
-        <button class="gender-btn boy" onclick="setGender('boy')">
-          <span class="emoji">⚡</span> Boy
-        </button>
-        <button class="gender-btn girl" onclick="setGender('girl')">
-          <span class="emoji">✦</span> Girl
-        </button>
-      </div>
-    </div>
-
-    <div id="form-screen" class="hidden form-screen">
-      <h2><i>•</i> 25 questions <span style="font-weight:400;color:rgba(255,255,255,0.2);font-size:0.9rem;">·</span> ton portrait</h2>
-
-      <div class="question-grid" id="questionGrid">
-        <div class="field-group"><label>Date de naissance</label><input type="date" id="birthdate"></div>
-        <div class="field-group"><label>Matières préférées</label><input type="text" id="subjects" placeholder="ex: maths, art, sport..."></div>
-        <div class="field-group"><label>Couleur favorite</label><input type="text" id="color" placeholder="ex: bleu, rouge..."></div>
-        <div class="field-group"><label>Activités qui te passionnent</label><input type="text" id="activities" placeholder="ex: coder, dessiner, voyager..."></div>
-        <div class="field-group"><label>Travailler seul ou en équipe ?</label><select id="team"><option>Seul</option><option>En équipe</option><option>Les deux</option></select></div>
-        <div class="field-group"><label>Plutôt logique ou créatif ?</label><select id="logic"><option>Logique</option><option>Créatif</option><option>Équilibré</option></select></div>
-        <div class="field-group"><label>Aimer aider les autres ?</label><select id="help"><option>Oui</option><option>Non</option><option>Parfois</option></select></div>
-        <div class="field-group"><label>Plutôt patient ou rapide ?</label><select id="pace"><option>Patient</option><option>Rapide</option><option>Flexible</option></select></div>
-        <div class="field-group"><label>Aimes-tu résoudre des problèmes ?</label><select id="problems"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Qu'est-ce qui te motive le plus ?</label><input type="text" id="motivation" placeholder="ex: liberté, argent, impact..."></div>
-        <div class="field-group"><label>Aimes-tu les maths ?</label><select id="math"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu les sciences ?</label><select id="science"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu la littérature ?</label><select id="literature"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu la technologie ?</label><select id="tech"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Mode de vie rêvé</label><input type="text" id="lifestyle" placeholder="ex: calme, aventure, luxe..."></div>
-        <div class="field-group"><label>Nature ou villes ?</label><select id="environment"><option>Nature</option><option>Villes</option><option>Les deux</option></select></div>
-        <div class="field-group"><label>Parler en public ?</label><select id="public"><option>Oui</option><option>Non</option><option>Parfois</option></select></div>
-        <div class="field-group"><label>Travailler avec des données ?</label><select id="data"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu l'art ?</label><select id="art"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu le design ?</label><select id="design"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Intérêt pour la santé / biologie ?</label><select id="health"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Organisé(e) ?</label><select id="organization"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Aimes-tu le débat / communication ?</label><select id="communication"><option>Oui</option><option>Non</option></select></div>
-        <div class="field-group"><label>Spirituel ou rationnel ?</label><select id="spirituality"><option>Spirituel</option><option>Rationnel</option><option>Les deux</option></select></div>
-        <div class="field-group"><label>Ton plus grand rêve</label><input type="text" id="dream" placeholder="ex: changer le monde, créer..."></div>
-      </div>
-
-      <button class="btn-primary" onclick="analyze()">🔮 Analyser mon profil</button>
-      <div id="result" class="hidden result"></div>
+<div class="container">
+  <div id="gender-screen">
+    <h1>Échoscope</h1>
+    <p class="subhead">L'oracle qui révèle ta voie</p>
+    <div class="gender-grid">
+      <button class="gender-btn boy" onclick="startQuiz('boy')"><span>⚡</span> Boy</button>
+      <button class="gender-btn girl" onclick="startQuiz('girl')"><span>✦</span> Girl</button>
     </div>
   </div>
 
-  <script>
-    let gender = "";
+  <div id="form-screen" class="hidden form-screen">
+    <h2><span>●</span> découvre ton profil</h2>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-text" id="progressText">1/25</span>
+    </div>
+    <div class="question-container" id="questionContainer">
+      <div id="questionContent"></div>
+      <div class="nav-buttons">
+        <button class="btn-prev" id="prevBtn" onclick="prevQuestion()">← Retour</button>
+        <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Suivant →</button>
+      </div>
+    </div>
+    <div id="result" class="hidden result"></div>
+  </div>
+</div>
 
-    function setGender(g) {
-      gender = g;
-      document.getElementById('gender-screen').classList.add('hidden');
-      document.getElementById('form-screen').classList.remove('hidden');
+<script>
+  let gender = '';
+  let currentQ = 0;
+  let answers = {};
 
-      const body = document.body;
-      const orb1 = document.getElementById('orb1');
-      const orb2 = document.getElementById('orb2');
-      const orb3 = document.getElementById('orb3');
+  const questions = [
+    { id: 'birthdate', label: 'Ta date de naissance', desc: 'Quel est ton jour d\'arrivée sur Terre ?', type: 'date', placeholder: '' },
+    { id: 'subjects', label: 'Matières préférées', desc: 'Lesquelles te font vibrer à l\'école ?', type: 'text', placeholder: 'ex: maths, art, sport...' },
+    { id: 'color', label: 'Couleur favorite', desc: 'Celle qui te représente le mieux.', type: 'text', placeholder: 'ex: bleu, rouge, noir...' },
+    { id: 'activities', label: 'Activités passion', desc: 'Ce qui te fait oublier l\'heure.', type: 'text', placeholder: 'ex: coder, dessiner, voyager...' },
+    { id: 'team', label: 'Travailler seul ou en équipe ?', desc: 'Comment préfères-tu avancer ?', type: 'select', options: ['Seul', 'En équipe', 'Les deux'] },
+    { id: 'logic', label: 'Logique ou créatif ?', desc: 'Comment fonctionne ton cerveau ?', type: 'select', options: ['Logique', 'Créatif', 'Équilibré'] },
+    { id: 'help', label: 'Aimer aider les autres ?', desc: 'Est-ce que ça te fait du bien ?', type: 'select', options: ['Oui', 'Non', 'Parfois'] },
+    { id: 'pace', label: 'Patient ou rapide ?', desc: 'Quel est ton rythme naturel ?', type: 'select', options: ['Patient', 'Rapide', 'Flexible'] },
+    { id: 'problems', label: 'Résoudre des problèmes ?', desc: 'Tu aimes chercher des solutions ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'motivation', label: 'Ce qui te motive le plus', desc: 'Quelle est ta vraie carburant ?', type: 'text', placeholder: 'ex: liberté, argent, impact...' },
+    { id: 'math', label: 'Aimes-tu les maths ?', desc: 'Les nombres, ça te parle ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'science', label: 'Aimes-tu les sciences ?', desc: 'L\'univers, la physique, la chimie ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'literature', label: 'Aimes-tu la littérature ?', desc: 'Les mots, les histoires, les romans ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'tech', label: 'Aimes-tu la technologie ?', desc: 'Le code, les gadgets, l\'IA ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'lifestyle', label: 'Mode de vie rêvé', desc: 'Comment imagines-tu ton quotidien idéal ?', type: 'text', placeholder: 'ex: calme, aventure, luxe...' },
+    { id: 'environment', label: 'Nature ou villes ?', desc: 'Où te sens-tu chez toi ?', type: 'select', options: ['Nature', 'Villes', 'Les deux'] },
+    { id: 'public', label: 'Parler en public ?', desc: 'Est-ce que ça te stresse ou t\'excite ?', type: 'select', options: ['Oui', 'Non', 'Parfois'] },
+    { id: 'data', label: 'Travailler avec des données ?', desc: 'Les chiffres, les stats, les tableaux ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'art', label: 'Aimes-tu l\'art ?', desc: 'La peinture, la musique, le cinéma ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'design', label: 'Aimes-tu le design ?', desc: 'Créer des choses belles et fonctionnelles ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'health', label: 'Intérêt pour la santé ?', desc: 'La biologie, le corps humain, la médecine ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'organization', label: 'Organisé(e) ?', desc: 'Tu aimes tout planifier ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'communication', label: 'Débat et communication ?', desc: 'Tu aimes discuter et convaincre ?', type: 'select', options: ['Oui', 'Non'] },
+    { id: 'spirituality', label: 'Spirituel ou rationnel ?', desc: 'Comment vois-tu le monde ?', type: 'select', options: ['Spirituel', 'Rationnel', 'Les deux'] },
+    { id: 'dream', label: 'Ton plus grand rêve', desc: 'Quelle est ta vision ultime ?', type: 'text', placeholder: 'ex: changer le monde, créer...' }
+  ];
 
-      if (g === 'boy') {
-        body.style.background = '#0b0b0e';
-        orb1.style.background = '#6c5ce7';
-        orb2.style.background = '#00b894';
-        orb3.style.background = '#0984e3';
-      } else {
-        body.style.background = '#0b0b0e';
-        orb1.style.background = '#fd79a8';
-        orb2.style.background = '#e17055';
-        orb3.style.background = '#fdcb6e';
-      }
+  function startQuiz(g) {
+    gender = g;
+    document.getElementById('gender-screen').classList.add('hidden');
+    document.getElementById('form-screen').classList.remove('hidden');
+    const orb1 = document.getElementById('orb1'), orb2 = document.getElementById('orb2'), orb3 = document.getElementById('orb3');
+    if (g === 'boy') { orb1.style.background = '#6c5ce7'; orb2.style.background = '#00b894'; orb3.style.background = '#0984e3'; }
+    else { orb1.style.background = '#fd79a8'; orb2.style.background = '#e17055'; orb3.style.background = '#fdcb6e'; }
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const q = questions[currentQ];
+    const container = document.getElementById('questionContent');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    progressFill.style.width = ((currentQ + 1) / questions.length * 100) + '%';
+    progressText.textContent = (currentQ + 1) + '/' + questions.length;
+
+    let html = `<div class="question-number">Question ${currentQ+1}</div>
+                <div class="question-label">${q.label}</div>
+                <div class="question-desc">${q.desc}</div>
+                <div class="field-group">`;
+
+    if (q.type === 'select') {
+      html += `<select id="q_${q.id}">`;
+      q.options.forEach(opt => {
+        const sel = answers[q.id] === opt ? 'selected' : '';
+        html += `<option ${sel}>${opt}</option>`;
+      });
+      html += `</select>`;
+    } else if (q.type === 'date') {
+      html += `<input type="date" id="q_${q.id}" value="${answers[q.id] || ''}">`;
+    } else {
+      html += `<input type="text" id="q_${q.id}" placeholder="${q.placeholder}" value="${answers[q.id] || ''}">`;
+    }
+    html += `</div>`;
+    container.innerHTML = html;
+
+    prevBtn.style.display = currentQ === 0 ? 'none' : 'block';
+    if (currentQ === questions.length - 1) {
+      nextBtn.textContent = '🔮 Analyser';
+      nextBtn.className = 'btn-submit';
+      nextBtn.onclick = analyze;
+    } else {
+      nextBtn.textContent = 'Suivant →';
+      nextBtn.className = 'btn-next';
+      nextBtn.onclick = nextQuestion;
     }
 
-    function analyze() {
-      const val = id => document.getElementById(id).value.toLowerCase().trim();
-
-      let scores = {
-        science: 0, tech: 0, creative: 0, social: 0, business: 0, health: 0
-      };
-
-      if (val('science') === 'oui') scores.science += 3;
-      if (val('math') === 'oui') scores.science += 2;
-      if (val('tech') === 'oui') scores.tech += 4;
-      if (val('art') === 'oui') scores.creative += 3;
-      if (val('design') === 'oui') { scores.creative += 3; scores.tech += 1; }
-      if (val('literature') === 'oui') scores.social += 2;
-      if (val('communication') === 'oui') scores.social += 3;
-      if (val('organization') === 'oui') scores.business += 3;
-      if (val('data') === 'oui') { scores.tech += 2; scores.business += 2; }
-      if (val('help') === 'oui') scores.social += 3;
-      if (val('health') === 'oui') scores.health += 4;
-      if (val('problems') === 'oui') { scores.science += 2; scores.tech += 2; }
-
-      const logic = val('logic');
-      if (logic === 'logique') scores.science += 3;
-      else if (logic === 'créatif') scores.creative += 4;
-      else if (logic === 'équilibré') { scores.science += 1; scores.creative += 1; }
-
-      const team = val('team');
-      if (team === 'en équipe') scores.social += 2;
-      else if (team === 'seul') scores.tech += 1;
-
-      const env = val('environment');
-      if (env === 'nature') scores.health += 1;
-      else if (env === 'villes') scores.business += 1;
-
-      if (val('public') === 'oui') scores.social += 2;
-      else if (val('public') === 'parfois') scores.social += 1;
-
-      const spirit = val('spirituality');
-      if (spirit === 'spirituel') scores.creative += 2;
-      else if (spirit === 'rationnel') scores.science += 2;
-      else { scores.creative += 1; scores.science += 1; }
-
-      const pace = val('pace');
-      if (pace === 'patient') scores.science += 1;
-      else if (pace === 'rapide') scores.business += 2;
-
-      const motiv = val('motivation') + ' ' + val('dream');
-      if (motiv.includes('argent') || motiv.includes('business') || motiv.includes('chef')) scores.business += 2;
-      if (motiv.includes('créer') || motiv.includes('art') || motiv.includes('design')) scores.creative += 2;
-      if (motiv.includes('santé') || motiv.includes('biologie') || motiv.includes('médecine')) scores.health += 2;
-      if (motiv.includes('technologie') || motiv.includes('code') || motiv.includes('ia')) scores.tech += 2;
-      if (motiv.includes('aider') || motiv.includes('humanitaire') || motiv.includes('impact')) scores.social += 2;
-
-      let topField = '';
-      let topJob = '';
-      let maxScore = 0;
-      let fieldNames = {
-        science: 'Sciences & Ingénierie',
-        tech: 'Technologie & Digital',
-        creative: 'Art & Création',
-        social: 'Sciences Humaines & Communication',
-        business: 'Business & Management',
-        health: 'Santé & Biologie'
-      };
-      let jobSuggestions = {
-        science: 'Ingénieur(e), Chercheur(e), Physicien(ne) ou Architecte',
-        tech: 'Développeur(euse), Data Scientist, UX Designer ou Expert IA',
-        creative: 'Designer, Artiste, Réalisateur(trice) ou Créateur de contenu',
-        social: 'Journaliste, Psychologue, Diplomate ou Enseignant(e)',
-        business: 'Entrepreneur(euse), Analyste financier, Manager ou Consultant(e)',
-        health: 'Médecin, Biologiste, Nutritionniste ou Chercheur(e) en santé'
-      };
-
-      for (let key in scores) {
-        if (scores[key] > maxScore) {
-          maxScore = scores[key];
-          topField = fieldNames[key];
-          topJob = jobSuggestions[key];
-        }
-      }
-
-      if (!topField) {
-        topField = 'Multidisciplinaire';
-        topJob = 'Explorateur(trice) de carrières — ta curiosité est ta force !';
-      }
-
-      const resultDiv = document.getElementById('result');
-      resultDiv.classList.remove('hidden');
-      resultDiv.innerHTML = `
-        <div class="badge">✦ alignement cosmique ✦</div>
-        <div class="field-name">${topField}</div>
-        <div class="job-title">${topJob}</div>
-        <div style="font-size:0.85rem;color:rgba(255,255,255,0.25);margin-top:-0.1rem;">
-          ${gender === 'boy' ? '⚡' : '✦'} profil ${gender} · analyse en 25 dimensions
-        </div>
-        <div class="footnote"><i>Échoscope ·</i> recommandation basée sur tes réponses, ton énergie et ton potentiel</div>
-      `;
-
-      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Auto-save on change
+    const input = document.getElementById(`q_${q.id}`);
+    if (input) {
+      input.addEventListener('change', () => { answers[q.id] = input.value; });
+      input.addEventListener('input', () => { answers[q.id] = input.value; });
     }
-  </script>
+  }
+
+  function nextQuestion() {
+    saveCurrentAnswer();
+    if (currentQ < questions.length - 1) { currentQ++; renderQuestion(); }
+  }
+
+  function prevQuestion() {
+    saveCurrentAnswer();
+    if (currentQ > 0) { currentQ--; renderQuestion(); }
+  }
+
+  function saveCurrentAnswer() {
+    const q = questions[currentQ];
+    const input = document.getElementById(`q_${q.id}`);
+    if (input) answers[q.id] = input.value;
+  }
+
+  function analyze() {
+    saveCurrentAnswer();
+    const val = id => (answers[id] || '').toLowerCase().trim();
+
+    let scores = { science: 0, tech: 0, creative: 0, social: 0, business: 0, health: 0 };
+
+    if (val('science') === 'oui') scores.science += 3;
+    if (val('math') === 'oui') scores.science += 2;
+    if (val('tech') === 'oui') scores.tech += 4;
+    if (val('art') === 'oui') scores.creative += 3;
+    if (val('design') === 'oui') { scores.creative += 3; scores.tech += 1; }
+    if (val('literature') === 'oui') scores.social += 2;
+    if (val('communication') === 'oui') scores.social += 3;
+    if (val('organization') === 'oui') scores.business += 3;
+    if (val('data') === 'oui') { scores.tech += 2; scores.business += 2; }
+    if (val('help') === 'oui') scores.social += 3;
+    if (val('health') === 'oui') scores.health += 4;
+    if (val('problems') === 'oui') { scores.science += 2; scores.tech += 2; }
+
+    const logic = val('logic');
+    if (logic === 'logique') scores.science += 3;
+    else if (logic === 'créatif') scores.creative += 4;
+    else if (logic === 'équilibré') { scores.science += 1; scores.creative += 1; }
+
+    const team = val('team');
+    if (team === 'en équipe') scores.social += 2;
+    else if (team === 'seul') scores.tech += 1;
+
+    const env = val('environment');
+    if (env === 'nature') scores.health += 1;
+    else if (env === 'villes') scores.business += 1;
+
+    if (val('public') === 'oui') scores.social += 2;
+    else if (val('public') === 'parfois') scores.social += 1;
+
+    const spirit = val('spirituality');
+    if (spirit === 'spirituel') scores.creative += 2;
+    else if (spirit === 'rationnel') scores.science += 2;
+    else { scores.creative += 1; scores.science += 1; }
+
+    const pace = val('pace');
+    if (pace === 'patient') scores.science += 1;
+    else if (pace === 'rapide') scores.business += 2;
+
+    const motiv = val('motivation') + ' ' + val('dream');
+    if (motiv.includes('argent') || motiv.includes('business') || motiv.includes('chef')) scores.business += 2;
+    if (motiv.includes('créer') || motiv.includes('art') || motiv.includes('design')) scores.creative += 2;
+    if (motiv.includes('santé') || motiv.includes('biologie') || motiv.includes('médecine')) scores.health += 2;
+    if (motiv.includes('technologie') || motiv.includes('code') || motiv.includes('ia')) scores.tech += 2;
+    if (motiv.includes('aider') || motiv.includes('humanitaire') || motiv.includes('impact')) scores.social += 2;
+
+    const fieldNames = {
+      science: 'Sciences & Ingénierie',
+      tech: 'Technologie & Digital',
+      creative: 'Art & Création',
+      social: 'Sciences Humaines',
+      business: 'Business & Management',
+      health: 'Santé & Biologie'
+    };
+    const jobSuggestions = {
+      science: 'Ingénieur, Chercheur, Physicien ou Architecte',
+      tech: 'Développeur, Data Scientist, UX Designer ou Expert IA',
+      creative: 'Designer, Artiste, Réalisateur ou Créateur de contenu',
+      social: 'Journaliste, Psychologue, Diplomate ou Enseignant',
+      business: 'Entrepreneur, Analyste financier, Manager ou Consultant',
+      health: 'Médecin, Biologiste, Nutritionniste ou Chercheur en santé'
+    };
+
+    let topField = '', topJob = '', maxScore = 0;
+    for (let key in scores) {
+      if (scores[key] > maxScore) { maxScore = scores[key]; topField = fieldNames[key]; topJob = jobSuggestions[key]; }
+    }
+    if (!topField) { topField = 'Multidisciplinaire'; topJob = 'Explorateur de carrières'; }
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.classList.remove('hidden');
+    document.getElementById('questionContainer').style.display = 'none';
+
+    let radarHtml = '';
+    const colors = { science: '#6c5ce7', tech: '#00b894', creative: '#fd79a8', social: '#fdcb6e', business: '#0984e3', health: '#e17055' };
+    for (let key in scores) {
+      const pct = Math.min((scores[key] / 15) * 100, 100);
+      radarHtml += `<div class="radar-item">
+        <div class="label">${fieldNames[key]}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[key]}" id="bar_${key}"></div></div>
+        <div class="score">${scores[key]}/15</div>
+      </div>`;
+    }
+
+    resultDiv.innerHTML = `
+      <div class="badge">✦ alignement cosmique ✦</div>
+      <div class="field-name">${topField}</div>
+      <div class="job-title">${topJob}</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.2);margin-bottom:.8rem;">profil ${gender} · analyse en 25 dimensions</div>
+      <div class="radar-wrap">${radarHtml}</div>
+      <div class="footnote">Échoscope · recommandation basée sur tes réponses, ton énergie et ton potentiel</div>
+    `;
+
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0%';
+        setTimeout(() => { el.style.width = w; }, 100);
+      });
+    }, 200);
+
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
 </body>
 </html>
-```
